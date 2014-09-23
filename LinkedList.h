@@ -149,7 +149,7 @@ template <class T> void LinkedList<T>::PushBack(const T &t) {
     Node<T> *append_node = new Node<T> (t);
     if (tail != nullptr)
     {
-        tail->next = append_node; // this is where I had next_ before
+        tail->next = append_node; 
         append_node->prev = tail;
         append_node->next = nullptr;
         tail = append_node;
@@ -170,6 +170,18 @@ template <class T> void LinkedList<T>::PushBack(const T &t) {
  */
 template <class T> void LinkedList<T>::PopFront() {
     // TODO
+    if (tail != nullptr)
+    {
+        head = head->next;
+        head->prev = nullptr;
+    }
+    else
+    {
+        head->next = nullptr;
+        head->prev = nullptr;
+        head = nullptr;   
+    }
+    size--;
 }
 
 /**
@@ -177,6 +189,17 @@ template <class T> void LinkedList<T>::PopFront() {
  */
 template <class T> void LinkedList<T>::PopBack() {
     // TODO
+    if (tail != nullptr)
+    {
+        tail = tail->prev;
+        tail->next = nullptr;
+    }
+    else
+    {
+        head->next = nullptr;
+        head->prev = nullptr;
+        head = nullptr;
+    }
 }
 
 /**
