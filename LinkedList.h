@@ -121,6 +121,23 @@ template <class T> int LinkedList<T>::Size() const {
  */
 template <class T> void LinkedList<T>::PushFront(const T &t) {
     // TODO
+    Node<T> *append_node = new Node<T> (t);
+    if (tail != nullptr)
+    {
+        tail->next = append_node; // this is where I had next_ before
+        append_node->prev = tail;
+        append_node->next = nullptr;
+        tail = append_node;
+    }//of if
+    // if the list is empty to start
+    else
+    {
+        append_node->next = nullptr;
+        append_node->prev = nullptr;
+        head = append_node;
+        tail = append_node;
+    }//of else
+    size++;
 }
 
 /**
@@ -133,11 +150,15 @@ template <class T> void LinkedList<T>::PushBack(const T &t) {
     if (tail != nullptr)
     {
         tail->next = append_node; // this is where I had next_ before
+        append_node->prev = tail;
+        append_node->next = nullptr;
         tail = append_node;
     }//of if
     // if the list is empty to start
     else
     {
+        append_node->prev = nullptr;
+        append_node->next = nullptr;
         head = append_node;
         tail = append_node;
     }//of else
