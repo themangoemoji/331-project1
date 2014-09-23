@@ -13,36 +13,36 @@
 
 template<class T> class LinkedList
 {
-public:
-	LinkedList();
-	LinkedList(const LinkedList<T>& other);
-	~LinkedList();
+    public:
+        LinkedList();
+        LinkedList(const LinkedList<T>& other);
+        ~LinkedList();
 
-	void operator=(const LinkedList<T>& other);
-	
-	// These methods are provided for you
-	void Clear();
-	void Display() const;
-	bool IsEmpty() const;
-	int Size() const;
-	
-	// Methods to add data to the front or the back of the list
-	// These should run in O(1) time
-	void PushFront(const T &t);
-	void PushBack(const T &t);
-	void PopFront();
-	void PopBack();
-	
-	// These methods can run in O(n) time
-	void Filter(std::function<bool (const T)> isIn);
-	void ForEach(std::function<void (const T)> func) const;
-	
-private:
-	Node<T>* head;
-	Node<T>* tail;
-	int size;
-	
-	// You can put helper methods here
+        void operator=(const LinkedList<T>& other);
+
+        // These methods are provided for you
+        void Clear();
+        void Display() const;
+        bool IsEmpty() const;
+        int Size() const;
+
+        // Methods to add data to the front or the back of the list
+        // These should run in O(1) time
+        void PushFront(const T &t);
+        void PushBack(const T &t);
+        void PopFront();
+        void PopBack();
+
+        // These methods can run in O(n) time
+        void Filter(std::function<bool (const T)> isIn);
+        void ForEach(std::function<void (const T)> func) const;
+
+    private:
+        Node<T>* head;
+        Node<T>* tail;
+        int size;
+
+        // You can put helper methods here
 };
 
 /**
@@ -51,12 +51,11 @@ private:
  * You are allowed (but not required) to change this method
  */
 template <class T> LinkedList<T>::LinkedList():
-
-	head(nullptr),
-	tail(nullptr),
-	size(0)
+    head(nullptr),
+    tail(nullptr),
+    size(0)
 {
-	// Empty
+    // Empty
 }
 
 /**
@@ -64,12 +63,12 @@ template <class T> LinkedList<T>::LinkedList():
  * Creates a shallow copy of the other list
  */
 template <class T> LinkedList<T>::LinkedList(const LinkedList<T> & other) : LinkedList() {
-	auto insertItem = [=](T x){ this->PushBack(x); };
-	other.ForEach(insertItem);
+    auto insertItem = [=](T x){ this->PushBack(x); };
+    other.ForEach(insertItem);
 }
 
 template <class T> LinkedList<T>::~LinkedList() {
-	Clear();
+    Clear();
 }
 
 /**
@@ -77,85 +76,87 @@ template <class T> LinkedList<T>::~LinkedList() {
  * Creates a shallow copy of the other list
  */
 template <class T> void LinkedList<T>::operator=(const LinkedList<T> & other) {
-	if (this != &other) {
-		Clear();
-		auto insertItem = [=](T x){ this->PushBack(x); };
-		other.ForEach(insertItem);
-	}
+    if (this != &other) {
+        Clear();
+        auto insertItem = [=](T x){ this->PushBack(x); };
+        other.ForEach(insertItem);
+    }
 }
 
 /**
  * Removes all elements from this list
  */
 template <class T> void LinkedList<T>::Clear() {
-	while(!IsEmpty()) {
-		PopFront();
-	}
+    while(!IsEmpty()) {
+        PopFront();
+    }
 }
 
 /**
  * Prints the contents of this list to the console
  */
 template <class T> void LinkedList<T>::Display() const {
-	using namespace std;
-	auto printItem = [](T x) { cout << x << " "; };
-	ForEach(printItem);
-	cout << endl;
+    using namespace std;
+    auto printItem = [](T x) { cout << x << " "; };
+    ForEach(printItem);
+    cout << endl;
 }
 
 /**
  * Checks if the list contains no items
  */
 template <class T> bool LinkedList<T>::IsEmpty() const{
-	return size == 0;
+    return size == 0;
 }
 
 /**
  * Counts the number of items in the list
  */
 template <class T> int LinkedList<T>::Size() const {
-	return size;
+    return size;
 }
 
 /**
  * Adds the item to the front of the list
  */
 template <class T> void LinkedList<T>::PushFront(const T &t) {
-	// TODO
+    // TODO
 }
 
 /**
  * Adds the item to the back of the list
  */
 template <class T> void LinkedList<T>::PushBack(const T &t) {
-// append new node to the end of the list
-  Node<T> *append_node = new Node<T> (t);
-  if (tail != nullptr)
-  {
-    tail->next = append_node; // this is where I had next_ before
-    
-    tail = append_node;
-  }//of if
-  // if the list is empty to start
-  else
-  {
-    head = append_node;
-    tail = append_node;
-  }//of else
+    // append new node to the end of the list
+    Node<T> *append_node = new Node<T>;
+    if (tail != nullptr)
+    {
+        // Node<T> *next = nullptr;
+        tail->next = append_node; // this is where I had next_ before
+
+        tail = append_node;
+    }//of if
+    // if the list is empty to start
+    else
+    {
+        head = append_node;
+        tail = append_node;
+    }//of else
+    size++;
 }
 
 /**
  * Removes the item at the front of the list
  */
 template <class T> void LinkedList<T>::PopFront() {
-	// TODO
+    // TODO
 }
 
 /**
  * Removes the item at the back of the list
  */
 template <class T> void LinkedList<T>::PopBack() {
-	// TODO
+    // TODO
 }
 
 /**
@@ -163,14 +164,19 @@ template <class T> void LinkedList<T>::PopBack() {
  * Other items are deleted
  */
 template <class T> void LinkedList<T>::Filter(std::function<bool (const T)> isIn) {
-	// TODO
+    // TODO
 }
 
 /**
  * Executes func(x) on each x in the list
  */
 template <class T> void LinkedList<T>::ForEach(std::function<void (const T)> func) const {
-	// TODO
+    // TODO
+    Node<T> *moving_node = head;
+    while (moving_node != nullptr)
+    {
+        moving_node.funtion() 
+    }
 }
 
 #endif
