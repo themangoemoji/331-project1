@@ -127,13 +127,12 @@ template <class T> void LinkedList<T>::PushFront(const T &t) {
  * Adds the item to the back of the list
  */
 template <class T> void LinkedList<T>::PushBack(const T &t) {
+    // TODO
     // append new node to the end of the list
-    Node<T> *append_node = new Node<T>;
+    Node<T> *append_node = new Node<T> (t);
     if (tail != nullptr)
     {
-        // Node<T> *next = nullptr;
         tail->next = append_node; // this is where I had next_ before
-
         tail = append_node;
     }//of if
     // if the list is empty to start
@@ -175,7 +174,8 @@ template <class T> void LinkedList<T>::ForEach(std::function<void (const T)> fun
     Node<T> *moving_node = head;
     while (moving_node != nullptr)
     {
-        moving_node.funtion() 
+        func(moving_node->Data());
+        moving_node = moving_node->next;
     }
 }
 

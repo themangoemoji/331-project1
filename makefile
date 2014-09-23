@@ -1,11 +1,11 @@
 CPPFLAGS=-std=c++11 -g -O3
 EXECUTABLE=prog
 
-all: Main.o
-	g++ Main.o -o $(EXECUTABLE)
+all: mymain.o	
+	g++ mymain.o -o $(EXECUTABLE)
 
-Main.o: Main.cpp LinkedList.h Node.h
-	g++ $(CPPFLAGS) -c Main.cpp
+mymain.o: mymain.cpp LinkedList.h Node.h
+	g++ $(CPPFLAGS) -c mymain.cpp
 
 clean: 
 	rm -f *.o
