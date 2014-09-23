@@ -51,6 +51,7 @@ private:
  * You are allowed (but not required) to change this method
  */
 template <class T> LinkedList<T>::LinkedList():
+
 	head(nullptr),
 	tail(nullptr),
 	size(0)
@@ -127,7 +128,20 @@ template <class T> void LinkedList<T>::PushFront(const T &t) {
  * Adds the item to the back of the list
  */
 template <class T> void LinkedList<T>::PushBack(const T &t) {
-	// TODO
+// append new node to the end of the list
+  Node<T> *append_node = new Node<T> (t);
+  if (tail != nullptr)
+  {
+    tail->next = append_node; // this is where I had next_ before
+    
+    tail = append_node;
+  }//of if
+  // if the list is empty to start
+  else
+  {
+    head = append_node;
+    tail = append_node;
+  }//of else
 }
 
 /**
