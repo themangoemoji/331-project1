@@ -10,6 +10,7 @@
 #include "Node.h"
 #include <iostream>
 #include <functional>
+using namespace std;
 
 template<class T> class LinkedList
 {
@@ -187,6 +188,7 @@ template <class T> void LinkedList<T>::PopFront()
         head = nullptr;
         tail = nullptr;
         delete(temp_ptr);
+        size--;
     }
     // if the list is more than one item long.
     else
@@ -194,8 +196,8 @@ template <class T> void LinkedList<T>::PopFront()
         head = head->next;
         head->prev = nullptr;
         delete(temp_ptr);
+        size--;
     }
-    size--;
 }
 
 /**
@@ -215,6 +217,7 @@ template <class T> void LinkedList<T>::PopBack() {
         head = nullptr;
         tail = nullptr;
         delete(temp_ptr);
+        size--;
     }
     // if the list is more than one element
     else
@@ -222,8 +225,8 @@ template <class T> void LinkedList<T>::PopBack() {
         tail = tail->prev;
         tail->next = nullptr;
         delete(temp_ptr);
+        size--;
     }
-    size--;
 }
 
 /**
@@ -245,29 +248,42 @@ template <class T> void LinkedList<T>::Filter(std::function<bool (const T)> isIn
             // Delete the node
             if (! isIn(moving_node->Data()))
             {
+                cout << "K CONDITIONS MET" << endl;
                 //FIRST CASE: 1 item in list
                 if (moving_node == head)
                 {
+                    cout << "POPFRONT reached" << endl;
                     //Call PopFront
                     PopFront();
+                    Display();
                 }//of if head 
 
                 //SECOND CASE: if the item is tail
                 else if (moving_node == tail)
                 {
+                    cout << "POPBACK reached" << endl;
                     // Call PopBack
                     PopBack();
+                    Display();
                 }//of else if head
-                //THIRD CASE: if the item to delete is the first/head in list
+
+                //THIRD CASE: if the item to delete is not an edge case
                 else 
                 {
+                    cout << "NON-EDGE reached" << endl;
                     Node<T> *temp_ptr = moving_node;
-                    (moving_node->prev)->(moving_node->next);                    
-                    (moving_node->next)->(moving_node->prev);                    
                     moving_node = moving_node->next;
+                    moving_node->prev = moving_node->prev->prev;
+                    moving_node->prev->next = moving_node;
                     delete(temp_ptr);
+                    size--;
+                    Display();
                 }// of else if tail
             }// of if
+            if (size == 0)
+            {
+                empty_list = true;
+            }
             moving_node = moving_node->next;
         }// of while
     }// of while
