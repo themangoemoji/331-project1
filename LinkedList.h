@@ -10,6 +10,7 @@
 #include "Node.h"
 #include <iostream>
 #include <functional>
+
 using namespace std;
 
 template<class T> class LinkedList
@@ -236,56 +237,42 @@ template <class T> void LinkedList<T>::PopBack() {
 template <class T> void LinkedList<T>::Filter(std::function<bool (const T)> isIn) {
     // TODO
     Node<T> *moving_node = head;
-    bool empty_list = false;
-    if (size == 0)
+
+    while (moving_node != nullptr)
     {
-        empty_list = true;
-    }
-    while (! empty_list)
-    {
-        while (moving_node != nullptr)
+        // Delete the node
+        if (isIn(moving_node->Data()))
         {
-            // Delete the node
-            if (! isIn(moving_node->Data()))
+            //FIRST CASE: 1 item in list
+            if (moving_node == head)
             {
-                cout << "K CONDITIONS MET" << endl;
-                //FIRST CASE: 1 item in list
-                if (moving_node == head)
-                {
-                    cout << "POPFRONT reached" << endl;
-                    //Call PopFront
-                    PopFront();
-                    Display();
-                }//of if head 
+                //Call PopFront
+                PopFront();
+                Display();
+            }//of if head 
 
-                //SECOND CASE: if the item is tail
-                else if (moving_node == tail)
-                {
-                    cout << "POPBACK reached" << endl;
-                    // Call PopBack
-                    PopBack();
-                    Display();
-                }//of else if head
-
-                //THIRD CASE: if the item to delete is not an edge case
-                else 
-                {
-                    cout << "NON-EDGE reached" << endl;
-                    Node<T> *temp_ptr = moving_node;
-                    moving_node = moving_node->next;
-                    moving_node->prev = moving_node->prev->prev;
-                    moving_node->prev->next = moving_node;
-                    delete(temp_ptr);
-                    size--;
-                    Display();
-                }// of else if tail
-            }// of if
-            if (size == 0)
+            //SECOND CASE: if the item is tail
+            else if (moving_node == tail)
             {
-                empty_list = true;
-            }
-            moving_node = moving_node->next;
-        }// of while
+                // Call PopBack
+                PopBack();
+                Display();
+            }//of else if head
+
+            //THIRD CASE: if the item to delete is not an edge case
+            else 
+            {
+                Node<T> *temp_ptr = moving_node;
+                moving_node = moving_node->next;
+                moving_node->prev = moving_node->prev->prev;
+                moving_node->prev->next = moving_node;
+                moving_node = moving_node->prev;
+                delete(temp_ptr);
+                size--;
+                Display();
+            }// of else if tail
+        }// of if
+        moving_node = moving_node->next;
     }// of while
 }// of Filter
 
