@@ -171,7 +171,8 @@ template <class T> void LinkedList<T>::PushBack(const T &t) {
 /**
  * Removes the item at the front of the list
  */
-template <class T> void LinkedList<T>::PopFront() {
+template <class T> void LinkedList<T>::PopFront() 
+{
     // TODO
     Node<T> *temp_ptr = head;
     if (head == nullptr)
@@ -179,7 +180,7 @@ template <class T> void LinkedList<T>::PopFront() {
         // do nothing; nothing to delete!
         delete(temp_ptr);
     }
-    if (head->next == nullptr)
+    else if (head->next == nullptr)
     {
         // whenever you are deleting, first create a node pointing 
         // to the node you want to delete.
@@ -203,22 +204,26 @@ template <class T> void LinkedList<T>::PopFront() {
 template <class T> void LinkedList<T>::PopBack() {
     // TODO
     Node<T> *temp_ptr = tail;
+    // if the list has no elements 
     if (tail == nullptr)
     {
         delete(temp_ptr);
     }
+    // if the list is one element long
     if (tail->next == nullptr)
     {
         head = nullptr;
-        head = nullptr;
+        tail = nullptr;
         delete(temp_ptr);
     }
+    // if the list is more than one element
     else
     {
-        temp_ptr = tail->prev;
+        tail = tail->prev;
         tail->next = nullptr;
         delete(temp_ptr);
     }
+    size--;
 }
 
 /**
@@ -228,16 +233,45 @@ template <class T> void LinkedList<T>::PopBack() {
 template <class T> void LinkedList<T>::Filter(std::function<bool (const T)> isIn) {
     // TODO
     Node<T> *moving_node = head;
-    while (moving_node != nullptr)
+    bool empty_list = false;
+    if (size == 0)
     {
-       if (! isIn)
-       {
-        // TODO 
-        // Delete function
-       } 
+        empty_list = true;
     }
+    while (! empty_list)
+    {
+        while (moving_node != nullptr)
+        {
+            // Delete the node
+            if (! isIn(moving_node->Data()))
+            {
+                //FIRST CASE: 1 item in list
+                if (moving_node == head)
+                {
+                    //Call PopFront
+                    PopFront();
+                }//of if head 
 
-}
+                //SECOND CASE: if the item is tail
+                else if (moving_node == tail)
+                {
+                    // Call PopBack
+                    PopBack();
+                }//of else if head
+                //THIRD CASE: if the item to delete is the first/head in list
+                else 
+                {
+                    Node<T> *temp_ptr = moving_node;
+                    (moving_node->prev)->(moving_node->next);                    
+                    (moving_node->next)->(moving_node->prev);                    
+                    moving_node = moving_node->next;
+                    delete(temp_ptr);
+                }// of else if tail
+            }// of if
+            moving_node = moving_node->next;
+        }// of while
+    }// of while
+}// of Filter
 
 /**
  * Executes func(x) on each x in the list
