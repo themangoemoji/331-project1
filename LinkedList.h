@@ -122,23 +122,26 @@ template <class T> int LinkedList<T>::Size() const {
 template <class T> void LinkedList<T>::PushFront(const T &t) {
     // TODO
     Node<T> *append_node = new Node<T> (t);
-    if (tail != nullptr)
-    {
-        append_node->next = head;
-        head->prev = append_node;
-        append_node->prev = nullptr;
-        head = append_node;
-    }//of if
-    // if the list is empty to start
-    else
+    if (head == nullptr)
     {
         append_node->next = nullptr;
         append_node->prev = nullptr;
         head = append_node;
         tail = append_node;
+    }//of if
+    // if the list is empty to start
+    else
+    {
+        append_node->next = head;
+        append_node->prev = nullptr;
+        head->prev = append_node;
+        head = append_node;
     }//of else
     size++;
 }
+
+//different
+//  if head == tail --> 1 item OR if size = 1;
 
 /**
  * Adds the item to the back of the list
@@ -147,19 +150,19 @@ template <class T> void LinkedList<T>::PushBack(const T &t) {
     // TODO
     // append new node to the end of the list
     Node<T> *append_node = new Node<T> (t);
-    if (tail != nullptr)
+    if (tail == nullptr)
     {
-        tail->next = append_node; 
-        append_node->prev = tail;
+        append_node->prev = nullptr;
         append_node->next = nullptr;
+        head = append_node;
         tail = append_node;
     }//of if
     // if the list is empty to start
     else
     {
-        append_node->prev = nullptr;
+        tail->next = append_node; 
+        append_node->prev = tail;
         append_node->next = nullptr;
-        head = append_node;
         tail = append_node;
     }//of else
     size++;
@@ -170,16 +173,26 @@ template <class T> void LinkedList<T>::PushBack(const T &t) {
  */
 template <class T> void LinkedList<T>::PopFront() {
     // TODO
-    if (tail != nullptr)
+    Node<T> *temp_ptr = head;
+    if (head == nullptr)
+    {
+        // do nothing; nothing to delete!
+        delete(temp_ptr);
+    }
+    if (head->next == nullptr)
+    {
+        // whenever you are deleting, first create a node pointing 
+        // to the node you want to delete.
+        head = nullptr;
+        tail = nullptr;
+        delete(temp_ptr);
+    }
+    // if the list is more than one item long.
+    else
     {
         head = head->next;
         head->prev = nullptr;
-    }
-    else
-    {
-        head->next = nullptr;
-        head->prev = nullptr;
-        head = nullptr;   
+        delete(temp_ptr);
     }
     size--;
 }
@@ -189,16 +202,22 @@ template <class T> void LinkedList<T>::PopFront() {
  */
 template <class T> void LinkedList<T>::PopBack() {
     // TODO
-    if (tail != nullptr)
+    Node<T> *temp_ptr = tail;
+    if (tail == nullptr)
     {
-        tail = tail->prev;
-        tail->next = nullptr;
+        delete(temp_ptr);
+    }
+    if (tail->next == nullptr)
+    {
+        head = nullptr;
+        head = nullptr;
+        delete(temp_ptr);
     }
     else
     {
-        head->next = nullptr;
-        head->prev = nullptr;
-        head = nullptr;
+        temp_ptr = tail->prev;
+        tail->next = nullptr;
+        delete(temp_ptr);
     }
 }
 
@@ -208,10 +227,10 @@ template <class T> void LinkedList<T>::PopBack() {
  */
 template <class T> void LinkedList<T>::Filter(std::function<bool (const T)> isIn) {
     // TODO
-    Note<T> *moving_node = head;
+    Node<T> *moving_node = head;
     while (moving_node != nullptr)
     {
-       if (! isIN)
+       if (! isIn)
        {
         // TODO 
         // Delete function
