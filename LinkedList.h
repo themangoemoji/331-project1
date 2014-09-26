@@ -2,7 +2,10 @@
  * A doubly-linked list.
  * Stub written by James Daly, 5 Sept 2014
  * Completed by Michael H. Wright
+ * NOTICE: I didn't cheat. 
+ * White board design and collaboration done with Ian R. Ferguson 
  */
+
 
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
@@ -142,9 +145,6 @@ template <class T> void LinkedList<T>::PushFront(const T &t) {
     }//of else
 }
 
-//different
-//  if head == tail --> 1 item OR if size = 1;
-
 /**
  * Adds the item to the back of the list
  */
@@ -270,7 +270,6 @@ template <class T> void LinkedList<T>::Filter(std::function<bool (const T)> isIn
         }// of if
         moving_node = moving_node->next;
     }// of while
-    cout << "List is: " << endl;
 }// of Filter
 
 /**

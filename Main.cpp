@@ -32,19 +32,20 @@ int main(int argc, char* argv[]) {
 
 	int k = atoi(argv[2]);        // k, divisor function
 
-	ll.Display();
-	cout << ll.Size() << endl;
+	//ll.Display();
+	//cout << ll.Size() << endl;
 
 	// Only keep the elements that are divisible by k
 	auto isDivisibleByK = [k](int x){ return x % k == 0; };
 	auto notDivisibleByK = [k](int x){ return x % k != 0; };
 	ll.Filter(isDivisibleByK);
-	ll.Display();
-	cout << ll.Size() << endl;
+  cout << argv[1] << ' ' <<	ll.Size();
+  cout << endl;
+	//cout << ll.Size() << endl;
 	// And this time the ones not visible by k
-	ll2.Filter(notDivisibleByK);
-	ll2.Display();
-	cout << ll2.Size() << endl;
+	//ll2.Filter(notDivisibleByK);
+	//ll2.Display();
+	//cout << ll2.Size() << endl;
 	
 	return 0;
 }
